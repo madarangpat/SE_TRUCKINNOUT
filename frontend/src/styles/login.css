@@ -1,0 +1,141 @@
+/* General Page Styling */
+body {
+    font-family: "Lexend", sans-serif;
+    background: radial-gradient(circle, #c6d0bc 0%, #c6d0bc 23%, #9ab380 100%);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Card Styling */
+.login-card {
+    width: 504px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 24px;
+    backdrop-filter: blur(35px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Logo Styling */
+.logo {
+    width: 103px;
+    height: 72px;
+    margin-bottom: 8px;
+}
+
+/* Title Section */
+.app-title {
+    font-size: 15px;
+    color: #0f172a;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.welcome-section {
+    margin-bottom: 32px;
+}
+
+.welcome-title {
+    font-size: 50px;
+    font-weight: 500;
+    color: #000000;
+    margin: 0;
+}
+
+.welcome-subtitle {
+    font-size: 12px;
+    font-weight: 500;
+    color: #0f172a;
+    opacity: 0.6;
+    margin: 8px 0 24px;
+}
+
+/* Form Section */
+.login-form {
+    width: 100%;
+    max-width: 410px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    text-align: left;
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 16px 24px;
+    border: 1px solid #94a3b8;
+    border-radius: 12px;
+    background: #f1f5f9;
+    font-size: 16px;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.form-input:focus {
+    border-color: #668743;
+    outline: none;
+}
+
+/* Login Button */
+.login-button {
+    width: 100%;
+    padding: 17px 0;
+    background: #668743;
+    border-radius: 12px;
+    color: #f8fafc;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+.login-button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.login-button:hover:not(:disabled) {
+    background: #567335;
+}
+
+/* Register Section */
+.register-section {
+    margin-top: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0f172a;
+}
+
+.register-link {
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}

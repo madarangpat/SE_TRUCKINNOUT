@@ -1,0 +1,182 @@
+/* General Background */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Lexend", sans-serif;
+    background: radial-gradient(circle, #c6d0bc 0%, #c6d0bc 23%, #9ab380 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Register Container */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+/* Background Blobs */
+.background-blobs .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(10px);
+}
+
+.green-light {
+    width: 466px;
+    height: 447px;
+    left: 1065px;
+    top: 711px;
+    background: #baff75;
+}
+
+.green-dark {
+    width: 343px;
+    height: 320px;
+    left: 1161px;
+    top: -41px;
+    background: #daffb4;
+}
+
+.lime {
+    width: 466px;
+    height: 447px;
+    left: 133px;
+    top: 716px;
+    background: #c5eba0;
+}
+
+.neon-green {
+    width: 526px;
+    height: 514px;
+    left: -282px;
+    top: 119px;
+    background: #93ff23;
+}
+
+/* Register Card */
+.register-card {
+    width: 80%;
+    max-width: 1228px;
+    height: auto;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(35px);
+    padding: 40px;
+    color: white;
+    position: relative;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo and Title */
+.logo-container {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.app-title {
+    font-size: 15px;
+    font-weight: 400;
+    color: #0f172a;
+    white-space: nowrap;
+}
+
+/* Register Title */
+.register-title {
+    font-size: 50px;
+    margin-bottom: 16px;
+}
+
+.register-subtitle {
+    font-size: 18px;
+    opacity: 0.65;
+    margin-bottom: 40px;
+}
+
+/* Form Styling */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form-group {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.form-group input {
+    width: 50%;
+    padding: 16px;
+    border: 1px solid #94a3b8;
+    border-radius: 12px;
+    background: #f1f5f9;
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.full-width {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #94a3b8;
+    border-radius: 12px;
+    background: #f1f5f9;
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.register-button {
+    width: 497px;
+    padding: 17px;
+    background: #668743;
+    color: #f8fafc;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background: #567335;
+}
+
+/* Styling for Dropdown (Select) Field */
+select.full-width {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #94a3b8;
+    border-radius: 12px;
+    background: #f1f5f9;
+    font-size: 16px;
+    color: #94a3b8;
+    appearance: none;
+    cursor: pointer;
+}
+
+select.full-width:focus {
+    border-color: #668743;
+    outline: none;
+}
+
+select.full-width option {
+    color: #0f172a;
+}
