@@ -1,4 +1,4 @@
-.register-container {
+/* .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,4 +105,68 @@ input, select {
     .form-group {
         flex-direction: column;
     }
-}
+} */
+
+
+body {
+    font-family: "Lexend", sans-serif;
+    background: radial-gradient(circle, #C6D0BC 0%, #9AB380 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .register-container {
+    width: 800px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(35px);
+    padding: 40px;
+    border-radius: 24px;
+    text-align: center;
+    color: white;
+  }
+  
+  .profile-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    cursor: pointer;
+  }
+  
+  .profile-placeholder {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #94A3B8;
+    border-radius: 8px;
+  }
+  
+  button {
+    background: #668743;
+    color: #F8FAFC;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  

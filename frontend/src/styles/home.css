@@ -1,0 +1,100 @@
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #c8d6a5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.home-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #a8b98b;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.menu-item {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: #d4e4a3;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.menu-item:hover {
+    background: #c0d18a;
+}
+
+.logout {
+    background: #d9534f;
+    color: white;
+}
+
+.dashboard {
+    flex: 1;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.trips, .employee-status, .payroll-summary, .employee-list {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.generate-report {
+    background: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.generate-report:hover {
+    background: #4cae4c;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}

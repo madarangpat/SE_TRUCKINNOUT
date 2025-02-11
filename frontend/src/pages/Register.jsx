@@ -1,96 +1,67 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
+import "../styles/register.css";
 
-function Register() {
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        contactNumber: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
+const Register = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    role: "Employee",  // Default to Employee
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const response = await fetch("http://localhost:8000/api/register/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
 
-    const [profilePicture, setProfilePicture] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    if (response.ok) {
+      alert("User registered successfully!");
+      navigate("/login");
+    } else {
+      alert("Error registering user");
+    }
+  };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  return (
+    <div className="register-container">
+      <h1>Register</h1>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} required />
+        <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required />
 
-    const handleProfilePicture = (e) => {
-        setProfilePicture(e.target.files[0]);
-    };
+        <label>Select Role:</label>
+        <select name="role" value={formData.role} onChange={handleChange}>
+          <option value="Admin">Admin</option>
+          <option value="Employee">Employee</option>
+        </select>
 
-    const handleRegister = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-
-        if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match!");
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const formDataToSend = new FormData();
-            Object.keys(formData).forEach((key) => {
-                formDataToSend.append(key, formData[key]);
-            });
-
-            if (profilePicture) {
-                formDataToSend.append("profilePicture", profilePicture);
-            }
-
-            await api.post("/register/", formDataToSend, {
-                headers: { "Content-Type": "multipart/form-data" },
-            });
-
-            alert("Registration successful! You can now log in.");
-            navigate("/login");
-        } catch (error) {
-            alert("Registration failed: " + (error.response?.data?.message || error.message));
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div className="register-container">
-            <div className="register-card">
-                <h1 className="register-title">ADD ACCOUNT</h1>
-                <p className="register-subtitle">Add another member to the Big C Family!</p>
-
-                <label className="profile-upload">
-                    <input type="file" accept="image/*" onChange={handleProfilePicture} hidden />
-                    <div className="profile-circle">
-                        {profilePicture ? (
-                            <img src={URL.createObjectURL(profilePicture)} alt="Profile" className="profile-preview" />
-                        ) : (
-                            "Click to Add Profile Picture"
-                        )}
-                    </div>
-                </label>
-
-                <form className="register-form" onSubmit={handleRegister}>
-                    <div className="form-group">
-                        <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name*" required />
-                        <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name*" required />
-                    </div>
-                    <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} placeholder="Contact Number*" required />
-                    <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Username*" required />
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password*" required />
-                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password*" required />
-
-                    <button type="submit" className="register-button" disabled={loading}>
-                        {loading ? "Registering..." : "Create New Account"}
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
-}
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
 
 export default Register;

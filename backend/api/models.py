@@ -1,30 +1,30 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
-
-class Company_User(models.Model):
-    username = models.CharField(max_length=255, primary_key=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)  # Store hashed passwords securely
-    cellphone_no = models.CharField(max_length=20)
-    email = models.EmailField(unique=True)
-    philhealth_no = models.CharField(max_length=20, blank=True, null=True)
-    pag_ibig_no = models.CharField(max_length=20, blank=True, null=True)
-    sss_no = models.CharField(max_length=20, blank=True, null=True)
-    role = models.CharField(max_length=255)
+# Custom User Model
+class CustomUser(AbstractUser):
+    ROLE_CHOICES = [
+        ('Admin', 'Admin'),
+        ('Employee', 'Employee'),
+    ]
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='Employee')
 
     def __str__(self):
-        return f"{self.username} - {self.company_name}"
+        return f"{self.username} - {self.role}"
 
+# Administrator Model (Updated ForeignKey to use AUTH_USER_MODEL)
 class Administrator(models.Model):
-    admin_id = models.AutoField(primary_key=True)
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # ✅ Correct ForeignKey
     salary_report_id = models.IntegerField()
 
-    def __str__(self):
-        return f"Admin {self.admin_id}"
 
+    def __str__(self):
+        return f"Admin {self.admin_id} - {self.user.username}"
+
+
+# Vehicle Model
 class Vehicle(models.Model):
     vehicle_id = models.CharField(max_length=255, primary_key=True)
     vehicle_type = models.CharField(max_length=255)
@@ -32,6 +32,8 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"Vehicle {self.vehicle_id} - {self.vehicle_type}"
 
+
+# Trip Model
 class Trip(models.Model):
     trip_id = models.AutoField(primary_key=True)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
@@ -46,6 +48,8 @@ class Trip(models.Model):
     def __str__(self):
         return f"Trip {self.trip_id} - {self.destination}"
 
+
+# Salary Model
 class Salary(models.Model):
     salary_id = models.AutoField(primary_key=True)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
@@ -59,16 +63,20 @@ class Salary(models.Model):
     def __str__(self):
         return f"Salary {self.salary_id} - Base: {self.base_salary}"
 
+
+# Employee Model (Updated ForeignKey to use AUTH_USER_MODEL)
 class Employee(models.Model):
-    employee_id = models.AutoField(primary_key=True)
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE) 
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     salary = models.ForeignKey(Salary, on_delete=models.CASCADE)
     employee_type = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"Employee {self.employee_id} - {self.employee_type}"
+        return f"Employee {self.employee_id} - {self.user.username} - {self.employee_type}"
 
+
+# Salary Report Model
 class SalaryReport(models.Model):
     salary_report_id = models.AutoField(primary_key=True)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)

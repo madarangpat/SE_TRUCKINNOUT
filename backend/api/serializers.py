@@ -1,27 +1,23 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Company_User, Administrator, Vehicle, Trip, Salary, Employee, SalaryReport
+from .models import CustomUser, Administrator, Vehicle, Trip, Salary, Employee, SalaryReport
+
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ["id", "username", "password"]
+        model = CustomUser
+        fields = ["username", "password", "first_name", "last_name", "email", "role"]
         extra_kwargs = {"password": {"write_only": True}}
         
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
-    
-# Company User Serializer
-class CompanyUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company_User
-        fields = '__all__'
         
 # Administrator Serializer (Includes Company User)
 class AdministratorSerializer(serializers.ModelSerializer):
     username = serializers.SlugRelatedField(
-        queryset=Company_User.objects.all(), slug_field='username'
+        queryset=User.objects.all(), slug_field='username'
     )   
     class Meta:
         model = Administrator
@@ -51,7 +47,7 @@ class SalarySerializer(serializers.ModelSerializer):
 # Employee Serializer (Includes Company User & Trip)
 class EmployeeSerializer(serializers.ModelSerializer):
     username = serializers.SlugRelatedField(
-        queryset=Company_User.objects.all(), slug_field='username'
+        queryset=User.objects.all(), slug_field='username'
     )
     trip = serializers.PrimaryKeyRelatedField(
         queryset = Trip.objects.all()

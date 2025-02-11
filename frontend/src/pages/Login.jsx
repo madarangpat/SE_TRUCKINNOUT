@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
@@ -10,6 +10,27 @@ function Login() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            event.preventDefault();
+            event.returnValue = "Are you sure you want to leave? Your session will be closed.";
+            return "Are you sure you want to leave? Your session will be closed.";
+        };
+
+        const handleUnload = () => {
+            localStorage.removeItem(ACCESS_TOKEN);
+            localStorage.removeItem(REFRESH_TOKEN);
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        window.addEventListener("unload", handleUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.removeEventListener("unload", handleUnload);
+        };
+    }, []);
+
     const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
@@ -20,9 +41,8 @@ function Login() {
                 {
                     headers: {"Content-Type": "application/json" }
                 }
-            
-            
             );
+
             console.log("Login Response:", res.data);
             localStorage.setItem(ACCESS_TOKEN, res.data.access);
             localStorage.setItem(REFRESH_TOKEN, res.data.refresh);

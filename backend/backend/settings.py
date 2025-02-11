@@ -157,3 +157,5 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",  # Your React app
     "http://127.0.0.1:5173",
 ]
+
+AUTH_USER_MODEL = 'api.CustomUser'
