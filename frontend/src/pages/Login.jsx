@@ -15,12 +15,21 @@ function Login() {
         e.preventDefault();
 
         try {
-            const res = await api.post("/login/", { username, password });
+            const res = await api.post("/api/login/", 
+                { username, password },
+                {
+                    headers: {"Content-Type": "application/json" }
+                }
+            
+            
+            );
+            console.log("Login Response:", res.data);
             localStorage.setItem(ACCESS_TOKEN, res.data.access);
             localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
             navigate("/");
         } catch (error) {
-            alert("Login failed: " + error.message);
+            console.error("Login failed:", error.response?.data || error.message);
+            alert("Login failed:" + (error.response?.data?.detail || error.message));
         } finally {
             setLoading(false);
         }
